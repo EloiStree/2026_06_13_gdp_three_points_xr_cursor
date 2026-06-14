@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://dfdtyi65x3pnn"]
+
+[ext_resource type="PackedScene" uid="uid://cjbcws2g3txrs" path="res://addons/2026_06_13_gdp_three_points_xr_cursor/3d/MetaQuestTouchPlus_Right/MetaQuestTouchPlus_Right.fbx" id="1_2w7af"]
+[ext_resource type="Texture2D" uid="uid://b8itrv437ji1m" path="res://addons/2026_06_13_gdp_three_points_xr_cursor/3d/MetaQuestTouchPlus_Right/MetaQuestTouchPlus_right_BaseColor.png" id="2_2qphp"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tal6f"]
+shading_mode = 0
+albedo_texture = ExtResource("2_2qphp")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qta5k"]
+shading_mode = 0
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_lkbi8"]
+
+[node name="QuestTouchWithAnchor" type="Node3D" unique_id=85319567]
+
+[node name="MetaQuestTouch" parent="." unique_id=26860808 instance=ExtResource("1_2w7af")]
+
+[node name="Skeleton3D" parent="MetaQuestTouch/RootNode2" parent_id_path=PackedInt32Array(26860808, 176119694) index="0" unique_id=1473782091]
+bones/1/position = Vector3(-1.14072, 0.1951398, -1.085249)
+bones/2/rotation = Quaternion(0.04043698, 0.10925583, -0.008632265, 0.99315333)
+bones/3/rotation = Quaternion(0.10538584, -0.0645229, -0.10578457, 0.9866815)
+bones/4/position = Vector3(1.542123, 0.6515468, 0.2793523)
+bones/5/position = Vector3(0.4872433, 0.4381565, -0.9725082)
+bones/6/rotation = Quaternion(-0.07339577, 0.11925421, 0.009944958, 0.9900973)
+
+[node name="right_laser_begin" parent="MetaQuestTouch/RootNode2/Skeleton3D" index="0" unique_id=206549702]
+bone_idx = 0
+
+[node name="oculus_controller_r_MeshX" parent="MetaQuestTouch/RootNode2/Skeleton3D" index="1" unique_id=951240677]
+material_override = SubResource("StandardMaterial3D_tal6f")
+
+[node name="right_batteryIndicatorQuad_MeshX" parent="MetaQuestTouch/RootNode2/Skeleton3D" index="2" unique_id=487977989]
+visible = false
+
+[node name="RightAnchorPoint" type="MeshInstance3D" parent="." unique_id=101982142]
+transform = Transform3D(0.005, 0, 0, 0, 0.005, 0, 0, 0, 0.005, -0.0059827133, -0.07264754, -0.06666828)
+material_override = SubResource("StandardMaterial3D_qta5k")
+mesh = SubResource("SphereMesh_lkbi8")
+
+[editable path="MetaQuestTouch"]

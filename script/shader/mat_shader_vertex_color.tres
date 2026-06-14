@@ -1,0 +1,7 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://ctvggvip17iym"]
+
+[ext_resource type="Shader" uid="uid://du4jks3wwbn5s" path="res://addons/2026_06_13_gdp_three_points_xr_cursor/script/shader/demo_xr_three_points_cursor_triangle.gdshader" id="1_3jk32"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_3jk32")

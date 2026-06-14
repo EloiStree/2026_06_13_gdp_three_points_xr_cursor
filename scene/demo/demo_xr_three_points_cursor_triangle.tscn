@@ -1,0 +1,92 @@
+[gd_scene format=3 uid="uid://c0bmvumdb8gv2"]
+
+[ext_resource type="PackedScene" uid="uid://dfdtyi65x3pnn" path="res://addons/2026_06_13_gdp_three_points_xr_cursor/scene/prefab/prefab_quest_touch_with_anchor.tscn" id="1_48ykg"]
+[ext_resource type="Script" uid="uid://b48kmv8hso2uw" path="res://addons/2026_06_13_gdp_three_points_xr_cursor/script/tri_points_setup_xr.gd" id="1_npjbc"]
+[ext_resource type="PackedScene" uid="uid://iox61elmfkio" path="res://addons/2026_06_13_gdp_three_points_xr_cursor/scene/prefab/prefab_three_points_cursor.tscn" id="3_vj1i0"]
+[ext_resource type="Script" uid="uid://mokogg6k3mal" path="res://addons/2026_06_13_gdp_three_points_xr_cursor/script/example/tri_points_relocate_table_example.gd" id="4_tal6f"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_48ykg"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tal6f"]
+transparency = 1
+albedo_color = Color(1, 0, 0, 0.44705883)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_qta5k"]
+
+[node name="DemoXrThreePointsCursorTriangle" type="Node3D" unique_id=1112688495]
+script = ExtResource("1_npjbc")
+
+[node name="XROrigin3D" type="XROrigin3D" parent="." unique_id=474855580]
+
+[node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D" unique_id=1341079155]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 1.7301365, 0.26519933)
+
+[node name="XRController3DLeft" type="XRController3D" parent="XROrigin3D" unique_id=1938735214]
+tracker = &"left_hand"
+
+[node name="QuestTouchWithAnchorLeft" parent="XROrigin3D/XRController3DLeft" unique_id=85319567 instance=ExtResource("1_48ykg")]
+transform = Transform3D(1, 7.642742e-15, 8.742278e-08, 0, 1, -8.742278e-08, 8.742278e-08, -8.742278e-08, -1, 0, 0, 0)
+
+[node name="RightAnchorPoint" parent="XROrigin3D/XRController3DLeft/QuestTouchWithAnchorLeft" index="1" unique_id=101982142]
+visible = false
+
+[node name="XRController3DRight" type="XRController3D" parent="XROrigin3D" unique_id=1227864115]
+tracker = &"right_hand"
+
+[node name="QuestTouchWithAnchorRight" parent="XROrigin3D/XRController3DRight" unique_id=917549453 instance=ExtResource("1_48ykg")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=596413288]
+transform = Transform3D(0.78574896, 0.19522282, -0.58692986, 0, 0.94888705, 0.31561592, 0.61854553, -0.24799488, 0.745587, 0, 0.6989837, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1499496893]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2823541, 0.50575966, -3.214674)
+mesh = SubResource("BoxMesh_48ykg")
+
+[node name="DebugTriangleState" type="Label3D" parent="." unique_id=152617695]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.17432112, -1.1318747)
+text = "test"
+
+[node name="ThreePointsCursor" parent="." unique_id=596774195 instance=ExtResource("3_vj1i0")]
+
+[node name="Timer" type="Timer" parent="ThreePointsCursor/Code/TriPointsSetTriangleCursorNodes" parent_id_path=PackedInt32Array(596774195, 622146512) index="0" unique_id=1597921081]
+wait_time = 0.5
+one_shot = true
+autostart = true
+
+[node name="TriPointsButtonInputChanged" parent="ThreePointsCursor/Code" parent_id_path=PackedInt32Array(596774195, 166455651) index="3" unique_id=512556018 node_paths=PackedStringArray("controller_to_observe")]
+controller_to_observe = NodePath("../../../XROrigin3D/XRController3DLeft")
+
+[node name="CursorSpherePointStart" parent="ThreePointsCursor" index="2" unique_id=1783480343]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.30302685, 0, 0)
+
+[node name="CursorSpherePointMiddle" parent="ThreePointsCursor" index="3" unique_id=122597608]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1920929e-07, 0.1653043)
+
+[node name="CursorSpherePointEnd" parent="ThreePointsCursor" index="4" unique_id=1051628614]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.29699534, 0, 0)
+
+[node name="CursorSpherePointCursorRed" parent="ThreePointsCursor" index="5" unique_id=1989010220 node_paths=PackedStringArray("what_to_follow")]
+what_to_follow = NodePath("../../XROrigin3D/XRController3DRight/QuestTouchWithAnchorRight/RightAnchorPoint")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=808630654]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.011790037, 0, -0.20628831)
+material_override = SubResource("StandardMaterial3D_tal6f")
+mesh = SubResource("CylinderMesh_qta5k")
+
+[node name="TriPointsRelocateTableExample" type="Node" parent="MeshInstance3D2" unique_id=632388299 node_paths=PackedStringArray("_table_to_relocate")]
+script = ExtResource("4_tal6f")
+_table_to_relocate = NodePath("..")
+metadata/_custom_type_script = "uid://mokogg6k3mal"
+
+[connection signal="on_new_point_added" from="ThreePointsCursor/Code/TriPointsSetTriangleCursorNodes" to="MeshInstance3D2/TriPointsRelocateTableExample" method="relocate_table"]
+[connection signal="on_three_points_emitted" from="ThreePointsCursor/Code/TriPointsSetTriangleCursorNodes" to="MeshInstance3D2/TriPointsRelocateTableExample" method="relocate_table"]
+[connection signal="timeout" from="ThreePointsCursor/Code/TriPointsSetTriangleCursorNodes/Timer" to="ThreePointsCursor/Code/TriPointsSetTriangleCursorNodes" method="emit_current_points"]
+[connection signal="on_raw_info_updated" from="ThreePointsCursor/Code/TriPointsRawInfoToText" to="DebugTriangleState" method="set_text"]
+
+[editable path="XROrigin3D/XRController3DLeft/QuestTouchWithAnchorLeft"]
+[editable path="XROrigin3D/XRController3DLeft/QuestTouchWithAnchorLeft/MetaQuestTouch"]
+[editable path="XROrigin3D/XRController3DRight/QuestTouchWithAnchorRight"]
+[editable path="XROrigin3D/XRController3DRight/QuestTouchWithAnchorRight/MetaQuestTouch"]
+[editable path="ThreePointsCursor"]
+[editable path="ThreePointsCursor/CursorSpherePointCursorRed"]

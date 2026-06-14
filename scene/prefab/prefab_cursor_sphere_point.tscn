@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://br6y4wydmwmtk"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mvdv3"]
+shading_mode = 0
+albedo_color = Color(0, 1, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_mvdv3"]
+
+[node name="CursorSpherePoint" type="Node3D" unique_id=1783480343]
+
+[node name="CursorPoint" type="MeshInstance3D" parent="." unique_id=512208325]
+transform = Transform3D(0.001, 0, 0, 0, 0.001, 0, 0, 0, 0.001, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_mvdv3")
+mesh = SubResource("SphereMesh_mvdv3")

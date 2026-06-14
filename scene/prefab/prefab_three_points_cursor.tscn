@@ -1,0 +1,95 @@
+[gd_scene format=3 uid="uid://iox61elmfkio"]
+
+[ext_resource type="Material" uid="uid://ctvggvip17iym" path="res://addons/2026_06_13_gdp_three_points_xr_cursor/script/shader/mat_shader_vertex_color.tres" id="1_co07q"]
+[ext_resource type="Script" uid="uid://qtem3yavjghi" path="res://addons/2026_06_13_gdp_three_points_xr_cursor/script/mesh/tri_points_triangle_mesh.gd" id="2_r3a5u"]
+[ext_resource type="Script" uid="uid://bemj0erxyr7bb" path="res://addons/2026_06_13_gdp_three_points_xr_cursor/script/tri_points_distance_angle_get.gd" id="3_ac5b3"]
+[ext_resource type="Script" uid="uid://dx1sq2sab8ia0" path="res://addons/2026_06_13_gdp_three_points_xr_cursor/script/resource/tri_points_triangle_distance_and_angle_resource.gd" id="4_50guf"]
+[ext_resource type="Script" uid="uid://bcwe260gaikw5" path="res://addons/2026_06_13_gdp_three_points_xr_cursor/script/resource/tri_points_triangle_global_position_resource.gd" id="5_47tey"]
+[ext_resource type="Script" uid="uid://de8k5egq5hf17" path="res://addons/2026_06_13_gdp_three_points_xr_cursor/script/resource/tri_points_full_triangle_resource.gd" id="6_k3sak"]
+[ext_resource type="Script" uid="uid://pbydw2pprd23" path="res://addons/2026_06_13_gdp_three_points_xr_cursor/script/tri_points_set_triangle_cursor_nodes.gd" id="7_if4ya"]
+[ext_resource type="Script" uid="uid://dhrefeshlctwv" path="res://addons/2026_06_13_gdp_three_points_xr_cursor/script/tri_points_emit_single_node_as_vector3.gd" id="8_yr16w"]
+[ext_resource type="Script" uid="uid://d133txbwwjagj" path="res://addons/2026_06_13_gdp_three_points_xr_cursor/script/tri_points_xr_button_input_changed.gd" id="9_sowrq"]
+[ext_resource type="Script" uid="uid://cfds1of6em1l1" path="res://addons/2026_06_13_gdp_three_points_xr_cursor/script/tri_points_raw_info_to_text.gd" id="10_gpflm"]
+[ext_resource type="PackedScene" uid="uid://br6y4wydmwmtk" path="res://addons/2026_06_13_gdp_three_points_xr_cursor/scene/prefab/prefab_cursor_sphere_point.tscn" id="11_f6wlo"]
+[ext_resource type="Script" uid="uid://w65nwjtje50q" path="res://addons/2026_06_13_gdp_three_points_xr_cursor/script/tri_points_follow_node3d.gd" id="12_5ncxb"]
+
+[sub_resource type="Resource" id="Resource_c4lrt"]
+script = ExtResource("4_50guf")
+metadata/_custom_type_script = "uid://dx1sq2sab8ia0"
+
+[sub_resource type="Resource" id="Resource_3524u"]
+script = ExtResource("5_47tey")
+metadata/_custom_type_script = "uid://bcwe260gaikw5"
+
+[sub_resource type="Resource" id="Resource_l8vag"]
+script = ExtResource("6_k3sak")
+_positions = SubResource("Resource_3524u")
+_distance_angle = SubResource("Resource_c4lrt")
+metadata/_custom_type_script = "uid://de8k5egq5hf17"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vj1i0"]
+shading_mode = 0
+albedo_color = Color(1, 0, 0, 1)
+
+[node name="ThreePointsCursor" type="Node3D" unique_id=596774195]
+
+[node name="TriPointsTriangleMesh" type="MeshInstance3D" parent="." unique_id=81232526 node_paths=PackedStringArray("point_start", "point_middle", "point_end")]
+material_override = ExtResource("1_co07q")
+script = ExtResource("2_r3a5u")
+point_start = NodePath("../CursorSpherePointStart")
+point_middle = NodePath("../CursorSpherePointMiddle")
+point_end = NodePath("../CursorSpherePointEnd")
+metadata/_custom_type_script = "uid://qtem3yavjghi"
+
+[node name="Code" type="Node" parent="." unique_id=166455651]
+
+[node name="TriPointsDistanceAngleGetFromNode3D" type="Node" parent="Code" unique_id=336172316 node_paths=PackedStringArray("_start_anchor", "_middle_anchor", "_end_anchor")]
+script = ExtResource("3_ac5b3")
+_start_anchor = NodePath("../../CursorSpherePointStart")
+_middle_anchor = NodePath("../../CursorSpherePointMiddle")
+_end_anchor = NodePath("../../CursorSpherePointEnd")
+_raw_info = SubResource("Resource_l8vag")
+metadata/_custom_type_script = "uid://bemj0erxyr7bb"
+
+[node name="TriPointsSetTriangleCursorNodes" type="Node" parent="Code" unique_id=622146512 node_paths=PackedStringArray("_start_anchor", "_middle_anchor", "_end_anchor")]
+script = ExtResource("7_if4ya")
+_start_anchor = NodePath("../../CursorSpherePointStart")
+_middle_anchor = NodePath("../../CursorSpherePointMiddle")
+_end_anchor = NodePath("../../CursorSpherePointEnd")
+
+[node name="TriPointsEmitSingleNodeAsVector3" type="Node" parent="Code" unique_id=340401991 node_paths=PackedStringArray("target_node")]
+script = ExtResource("8_yr16w")
+target_node = NodePath("../../CursorSpherePointCursorRed")
+metadata/_custom_type_script = "uid://dhrefeshlctwv"
+
+[node name="TriPointsButtonInputChanged" type="Node" parent="Code" unique_id=512556018 node_paths=PackedStringArray("controller_to_observe")]
+script = ExtResource("9_sowrq")
+controller_to_observe = NodePath("")
+metadata/_custom_type_script = "uid://d133txbwwjagj"
+
+[node name="TriPointsRawInfoToText" type="Node" parent="Code" unique_id=1122374286]
+script = ExtResource("10_gpflm")
+metadata/_custom_type_script = "uid://cfds1of6em1l1"
+
+[node name="CursorSpherePointStart" parent="." unique_id=1783480343 instance=ExtResource("11_f6wlo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.29304957)
+
+[node name="CursorSpherePointMiddle" parent="." unique_id=122597608 instance=ExtResource("11_f6wlo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.16535592, 1.1920929e-07, -0.12678576)
+
+[node name="CursorSpherePointEnd" parent="." unique_id=1051628614 instance=ExtResource("11_f6wlo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.18986684, 0.32331777, -0.2835158)
+
+[node name="CursorSpherePointCursorRed" parent="." unique_id=1989010220 node_paths=PackedStringArray("what_to_follow", "what_to_move") instance=ExtResource("11_f6wlo")]
+script = ExtResource("12_5ncxb")
+what_to_follow = NodePath("")
+what_to_move = NodePath(".")
+
+[node name="CursorPoint" parent="CursorSpherePointCursorRed" index="0" unique_id=512208325]
+material_override = SubResource("StandardMaterial3D_vj1i0")
+
+[connection signal="on_info_emitted" from="Code/TriPointsDistanceAngleGetFromNode3D" to="Code/TriPointsRawInfoToText" method="push_raw_info_in"]
+[connection signal="on_target_node_global_position_emitted" from="Code/TriPointsEmitSingleNodeAsVector3" to="Code/TriPointsSetTriangleCursorNodes" method="append_new_point_vector3"]
+[connection signal="on_button_down" from="Code/TriPointsButtonInputChanged" to="Code/TriPointsEmitSingleNodeAsVector3" method="emit_current_global_position"]
+
+[editable path="CursorSpherePointCursorRed"]
