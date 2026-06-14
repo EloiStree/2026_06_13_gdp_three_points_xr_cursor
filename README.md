@@ -10,5 +10,5 @@ This toolbox would introduce a 3D triangle cursor in Godot XR. The triangle coul
 
 <img width="1027" height="531" alt="image" src="https://github.com/user-attachments/assets/0b3e62c8-7b94-4db3-bca0-238c8ec62626" />
 
-Example of loading round table based on three points:
-<img width="508" height="421" alt="image" src="https://github.com/user-attachments/assets/08dfec22-c378-42d1-be39-cc694cb8dbee" />
+Example of loading round table based on three points:    
+<img width="508" height="421" alt="image" src="https://github.com/user-attachments/assets/08dfec22-c378-42d1-be39-cc694cb8dbee" />     
