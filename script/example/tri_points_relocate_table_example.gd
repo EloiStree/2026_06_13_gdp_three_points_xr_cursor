@@ -21,7 +21,7 @@ func relocate_table(start: Vector3, middle: Vector3, end: Vector3):
 	var r3 = (end - center).length()
 	var radius = r2
 	_table_to_relocate.global_position = center
-	_table_to_relocate.scale = Vector3(radius*2.0, 0.01, radius*2.0)
+	_table_to_relocate.scale = Vector3(radius*2.0, radius*2.0, radius*2.0)
 	var direction = (middle - center).normalized()
 	var angle_y: float = Vector3.FORWARD.signed_angle_to(direction, Vector3.UP)
 	_table_to_relocate.global_rotation_degrees = Vector3(0, rad_to_deg(angle_y), 0)

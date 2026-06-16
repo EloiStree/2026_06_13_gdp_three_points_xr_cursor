@@ -10,7 +10,14 @@ signal on_button_up()
 @export var button_name_press_release:String="primary_click"
 
 @export var button_state:bool=0
+
+var left_hand: XRNode3D
+
+
 func _ready() -> void:
+	if controller_to_observe==null:
+		controller_to_observe = find_left_hand(get_tree().current_scene)
+	
 	if controller_to_observe:
 		controller_to_observe.button_pressed.connect(_pressed)
 		controller_to_observe.button_released.connect(_released)
@@ -30,3 +37,15 @@ func _released(name:String):
 		on_button_up.emit()
 		if button_state:
 			on_button_state_changed.emit(false)
+
+
+func find_left_hand(node: Node) -> XRNode3D:
+	if node is XRNode3D and node.tracker == "left_hand":
+		return node
+
+	for child in node.get_children():
+		var result := find_left_hand(child)
+		if result:
+			return result
+
+	return null

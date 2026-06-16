@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://b8itrv437ji1m"
 path.s3tc="res://.godot/imported/MetaQuestTouchPlus_right_BaseColor.png-f54e8859e4e81c38972d609369367038.s3tc.ctex"
+path.etc2="res://.godot/imported/MetaQuestTouchPlus_right_BaseColor.png-f54e8859e4e81c38972d609369367038.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://addons/2026_06_13_gdp_three_points_xr_cursor/3d/MetaQuestTouchPlus_Right/MetaQuestTouchPlus_right_BaseColor.png"
-dest_files=["res://.godot/imported/MetaQuestTouchPlus_right_BaseColor.png-f54e8859e4e81c38972d609369367038.s3tc.ctex"]
+dest_files=["res://.godot/imported/MetaQuestTouchPlus_right_BaseColor.png-f54e8859e4e81c38972d609369367038.s3tc.ctex", "res://.godot/imported/MetaQuestTouchPlus_right_BaseColor.png-f54e8859e4e81c38972d609369367038.etc2.ctex"]
 
 [params]
 

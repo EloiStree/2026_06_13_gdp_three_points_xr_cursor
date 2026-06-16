@@ -3,9 +3,14 @@
 [ext_resource type="PackedScene" uid="uid://dfdtyi65x3pnn" path="res://addons/2026_06_13_gdp_three_points_xr_cursor/scene/prefab/prefab_quest_touch_with_anchor.tscn" id="1_48ykg"]
 [ext_resource type="Script" uid="uid://b48kmv8hso2uw" path="res://addons/2026_06_13_gdp_three_points_xr_cursor/script/tri_points_setup_xr.gd" id="1_npjbc"]
 [ext_resource type="PackedScene" uid="uid://iox61elmfkio" path="res://addons/2026_06_13_gdp_three_points_xr_cursor/scene/prefab/prefab_three_points_cursor.tscn" id="3_vj1i0"]
+[ext_resource type="Texture2D" uid="uid://dc53345fc065u" path="res://addons/2026_06_13_gdp_three_points_xr_cursor/3d/hexa_chess/hexa_chess_board_color_uv.png" id="4_lkbi8"]
 [ext_resource type="Script" uid="uid://mokogg6k3mal" path="res://addons/2026_06_13_gdp_three_points_xr_cursor/script/example/tri_points_relocate_table_example.gd" id="4_tal6f"]
+[ext_resource type="ArrayMesh" uid="uid://dhki47o8o53ay" path="res://addons/2026_06_13_gdp_three_points_xr_cursor/3d/hexa_chess/hexa_chess_board.obj" id="6_npjbc"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_48ykg"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_alxeq"]
+albedo_texture = ExtResource("4_lkbi8")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tal6f"]
 transparency = 1
@@ -45,7 +50,7 @@ mesh = SubResource("BoxMesh_48ykg")
 
 [node name="DebugTriangleState" type="Label3D" parent="." unique_id=152617695]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.17432112, -1.1318747)
-text = "test"
+text = "-"
 
 [node name="ThreePointsCursor" parent="." unique_id=596774195 instance=ExtResource("3_vj1i0")]
 
@@ -53,9 +58,6 @@ text = "test"
 wait_time = 0.5
 one_shot = true
 autostart = true
-
-[node name="TriPointsButtonInputChanged" parent="ThreePointsCursor/Code" parent_id_path=PackedInt32Array(596774195, 166455651) index="3" unique_id=512556018 node_paths=PackedStringArray("controller_to_observe")]
-controller_to_observe = NodePath("../../../XROrigin3D/XRController3DLeft")
 
 [node name="CursorSpherePointStart" parent="ThreePointsCursor" index="2" unique_id=1783480343]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.30302685, 0, 0)
@@ -69,18 +71,26 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.29699534, 0, 0)
 [node name="CursorSpherePointCursorRed" parent="ThreePointsCursor" index="5" unique_id=1989010220 node_paths=PackedStringArray("what_to_follow")]
 what_to_follow = NodePath("../../XROrigin3D/XRController3DRight/QuestTouchWithAnchorRight/RightAnchorPoint")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=808630654]
+[node name="Node3D" type="Node3D" parent="." unique_id=221090984]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.011790037, 0, -0.20628831)
+
+[node name="ChessBoard" type="MeshInstance3D" parent="Node3D" unique_id=1136284128]
+transform = Transform3D(1.13, 0, 0, 0, 1.13, 0, 0, 0, 1.13, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_alxeq")
+mesh = ExtResource("6_npjbc")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Node3D" unique_id=808630654]
+transform = Transform3D(1, 0, 0, 0, 0.00949563, 0, 0, 0, 1, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_tal6f")
 mesh = SubResource("CylinderMesh_qta5k")
 
-[node name="TriPointsRelocateTableExample" type="Node" parent="MeshInstance3D2" unique_id=632388299 node_paths=PackedStringArray("_table_to_relocate")]
+[node name="TriPointsRelocateTableExample" type="Node" parent="Node3D" unique_id=632388299 node_paths=PackedStringArray("_table_to_relocate")]
 script = ExtResource("4_tal6f")
 _table_to_relocate = NodePath("..")
 metadata/_custom_type_script = "uid://mokogg6k3mal"
 
-[connection signal="on_new_point_added" from="ThreePointsCursor/Code/TriPointsSetTriangleCursorNodes" to="MeshInstance3D2/TriPointsRelocateTableExample" method="relocate_table"]
-[connection signal="on_three_points_emitted" from="ThreePointsCursor/Code/TriPointsSetTriangleCursorNodes" to="MeshInstance3D2/TriPointsRelocateTableExample" method="relocate_table"]
+[connection signal="on_new_point_added" from="ThreePointsCursor/Code/TriPointsSetTriangleCursorNodes" to="Node3D/TriPointsRelocateTableExample" method="relocate_table"]
+[connection signal="on_three_points_emitted" from="ThreePointsCursor/Code/TriPointsSetTriangleCursorNodes" to="Node3D/TriPointsRelocateTableExample" method="relocate_table"]
 [connection signal="timeout" from="ThreePointsCursor/Code/TriPointsSetTriangleCursorNodes/Timer" to="ThreePointsCursor/Code/TriPointsSetTriangleCursorNodes" method="emit_current_points"]
 [connection signal="on_raw_info_updated" from="ThreePointsCursor/Code/TriPointsRawInfoToText" to="DebugTriangleState" method="set_text"]
 
