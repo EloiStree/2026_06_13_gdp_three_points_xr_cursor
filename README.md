@@ -1,3 +1,10 @@
+**Add to a git project:**
+```
+git submodule add https://github.com/EloiStree/2026_06_13_gdp_three_points_xr_cursor.git addons/2026_06_13_gdp_three_points_xr_cursor
+```
+
+
+
 # 2026_06_13_gdp_three_points_xr_cursor
 
 > Add support in Godot XR for generating a three-point triangle in world space that can be used by external packages.
